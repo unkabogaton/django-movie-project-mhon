@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div style="padding: 20px;">
+  <h1 class="page-title">Ticket Purchases</h1>
+
+  <form method="get" class="form-filters">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search by ID, transaction, or movie"
+           class="input-field" />
+
+    <select name="status" class="input-field">
+      <option value="">All Statuses</option>
+      <option value="Valid" {% if status_filter == "Valid" %}selected{% endif %}>Valid</option>
+      <option value="Redeemed" {% if status_filter == "Redeemed" %}selected{% endif %}>Redeemed</option>
+      <option value="Expired" {% if status_filter == "Expired" %}selected{% endif %}>Expired</option>
+    </select>
+
+    <button type="submit" class="btn-primary">Apply</button>
+  </form>
+  <div class="recent-transactions">
+  <table>
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Movie Title</th>
+        <th>Transaction ID</th>
+        <th>Status</th>
+        <th>Updated At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ticket in tickets %}
+        <tr>
+          <td>{{ ticket.id }}</td>
+          <td>{{ ticket.movie.title }}</td>
+          <td>{{ ticket.transaction.id }}</td>
+          <td>{{ ticket.ticket_status }}</td>
+          <td>{{ ticket.updatedAt }}</td>
+          <td>
+            {% if ticket.ticket_status == 'Valid' %}
+              <form method="post" action="{% url 'redeem_ticket' ticket.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-success">Redeem</button>
+              </form>
+            {% else %}
+              <span style="color: gray;"></span>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6" style="text-align: center;">No tickets found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+{% endblock %}

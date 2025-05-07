@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Movie Ticket Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    {% include "includes/navbar.html" %}
+    <div class="main-container" style="display: flex">
+      {% include "includes/sidebar.html" %}
+      <main style="flex: 1; padding: 1rem">
+        {% block content %} {% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">Movie Ticket Management System</div>
+      <a href="{% url 'admin:logout' %}" class="logout">Logout</a>
+    </nav>
+
+    <main>
+      <section class="stats">
+        <div class="stat-item">
+          <h3>Total Movies</h3>
+          <p>{{ total_movies }}</p>
+        </div>
+        <div class="stat-item">
+          <h3>Total Transactions</h3>
+          <p>{{ total_transactions }}</p>
+        </div>
+      </section>
+
+      <section class="top-movies">
+        <h2>Top 5 Movies</h2>
+        <div class="movie-list">
+          {% for movie in top_movies %}
+          <div class="movie-card">
+            <h3>{{ movie.title }}</h3>
+            <p>Rating: {{ movie.ratings }}</p>
+          </div>
+          {% empty %}
+          <p>No movies available.</p>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="recent-transactions">
+        <h2>Recent Transactions</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Amount Paid</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for transaction in recent_transactions %}
+            <tr>
+              <td>{{ transaction.customer.name }}</td>
+              <td>${{ transaction.amount_paid }}</td>
+              <td>{{ transaction.status }}</td>
+              <td>{{ transaction.createdAt|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4">No transactions available.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+<div class="space-y-2">
+    <p><strong>ID:</strong> {{ txn.id }}</p>
+    <p><strong>Movie:</strong> {{ txn.movie.title }}</p>
+    <p><strong>Customer:</strong> {{ txn.customer.name }} ({{ txn.customer.email }})</p>
+    <p><strong>Quantity:</strong> {{ txn.quantity }}</p>
+    <p><strong>Amount Paid:</strong> ${{ txn.amount_paid }}</p>
+    <p><strong>Purchase Method:</strong> {{ txn.purchase_method }}</p>
+    <p><strong>Status:</strong> {{ txn.status }}</p>
+    <p><strong>Date:</strong> {{ txn.createdAt|date:"Y-m-d H:i" }}</p>
+  </div>
