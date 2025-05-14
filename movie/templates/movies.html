@@ -41,6 +41,7 @@
         <th>Year</th>
         <th>Actors</th>
         <th>Ratings</th>
+        <th>Price</th>
         <th>Duration</th>
         <th>Updated At</th>
         <th>Actions</th>
@@ -54,6 +55,7 @@
           <td>{{ movie.year }}</td>
           <td>{{ movie.actors }}</td>
           <td>{{ movie.ratings }}</td>
+          <td>{{ movie.price }}</td>
           <td>{{ movie.duration }}</td>
           <td>{{ movie.updatedAt }}</td>
           <td style="width: 200px;">
@@ -80,6 +82,7 @@
         <h5 class="card-title">{{ movie.title }}</h5>
         <p class="card-text"><strong>Actors:</strong> {{ movie.actors }}</p>
         <p class="card-text"><strong>Ratings:</strong> {{ movie.ratings }}</p>
+        <p class="card-text"><strong>Price:</strong> {{ movie.price }}</p>
         <p class="card-text"><strong>Duration:</strong> {{ movie.duration }}</p>
         <p class="card-text"><strong>Year:</strong> {{ movie.year }}</p>
       </div>
@@ -115,6 +118,7 @@
         <p><strong>Description:</strong> {{ movie.description }}</p>
         <p><strong>Actors:</strong> {{ movie.actors }}</p>
         <p><strong>Ratings:</strong> {{ movie.ratings }}</p>
+        <p><strong>Price:</strong> {{ movie.price }}</p>
         <p><strong>Duration:</strong> {{ movie.duration }}</p>
         <p><strong>Producer:</strong> {{ movie.producer }}</p>
         <p><strong>Image:</strong><br><img src="{{ movie.link_to_pictures }}" alt="Movie Image" width="100"></p>
@@ -162,6 +166,9 @@
             <label class="form-label">Duration</label>
             <input type="text" name="duration" value="{{ movie.duration }}" class="form-control">
 
+            <label class="form-label">Price</label>
+            <input type="text" name="price" value="{{ movie.price }}" class="form-control">
+
             <label class="form-label">Producer</label>
             <input type="text" name="producer" value="{{ movie.producer }}" class="form-control">
           </div>
@@ -206,6 +213,9 @@
 
             <label class="form-label">Ratings</label>
             <input type="number" step="0.1" name="ratings" class="form-control">
+
+            <label class="form-label">Price</label>
+            <input type="number" step="0.1" name="price" class="form-control">
 
             <label class="form-label">Link to Pictures</label>
             <input type="url" name="link_to_pictures" class="form-control">

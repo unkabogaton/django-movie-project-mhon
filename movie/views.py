@@ -135,7 +135,6 @@ def update_schedule(request, schedule_id):
         schedule.movie_id = request.POST.get("movie_id")
         schedule.showtimes = request.POST.get("showtimes")
         schedule.intermission = request.POST.get("intermission")
-        schedule.price = request.POST.get("price")
         schedule.capacity = request.POST.get("capacity")
         schedule.save()
         return redirect('showrooms')
@@ -170,6 +169,7 @@ def add_movie(request):
             description=data.get('description'),
             actors=data.get('actors'),
             ratings=data.get('ratings'),
+            price=data.get('price'),
             link_to_pictures=data.get('link_to_pictures'),
             duration=data.get('duration'),
             producer=data.get('producer'),
@@ -190,6 +190,7 @@ def edit_movie(request):
         movie.description = request.POST.get('description')
         movie.actors = request.POST.get('actors')
         movie.ratings = request.POST.get('ratings')
+        movie.price = request.POST.get('price')
         movie.link_to_pictures = request.POST.get('link_to_pictures')
         movie.duration = request.POST.get('duration')
         movie.producer = request.POST.get('producer')

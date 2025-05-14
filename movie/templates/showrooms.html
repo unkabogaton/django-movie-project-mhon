@@ -17,7 +17,7 @@
           <p class="card-text mb-1"><strong>Year:</strong> {{ s.movie.year }}</p>
           <p class="card-text mb-1"><strong>Showtimes:</strong> {{ s.showtimes }}</p>
           <p class="card-text mb-1"><strong>Intermission:</strong> {{ s.intermission }}</p>
-          <p class="card-text mb-1"><strong>Price:</strong> ₱{{ s.price }}</p>
+          <p class="card-text mb-1"><strong>Price:</strong> ${{ s.movie.price }}</p>
           <p class="card-text mb-1"><strong>Capacity:</strong> {{ s.capacity }}</p>
           <p class="card-text"><strong>Updated at:</strong> {{ s.updatedAt }}</p>
         </div>
@@ -30,7 +30,6 @@
             data-bs-movie-id="{{ s.movie.id }}"
             data-bs-showtimes="{{ s.showtimes }}"
             data-bs-intermission="{{ s.intermission }}"
-            data-bs-price="{{ s.price }}"
             data-bs-capacity="{{ s.capacity }}"
           >
             Change Movie
@@ -43,4 +42,68 @@
 </div>
 
 <!-- Modal code remains unchanged -->
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" id="editForm">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Schedule</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="movieSelect" class="form-label">Movie</label>
+            <select name="movie_id" id="movieSelect" class="form-select">
+              {% for m in movies %}
+              <option value="{{ m.id }}">{{ m.title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="showtimesInput" class="form-label">Showtimes</label>
+            <input type="text" name="showtimes" id="showtimesInput" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="intermissionInput" class="form-label">Intermission</label>
+            <input type="text" name="intermission" id="intermissionInput" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="capacityInput" class="form-label">Capacity</label>
+            <input type="number" name="capacity" id="capacityInput" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap modal data-fill script -->
+<script>
+  const editModal = document.getElementById('editModal');
+  editModal.addEventListener('show.bs.modal', event => {
+    const button = event.relatedTarget;
+    const scheduleId = button.getAttribute('data-bs-schedule-id');
+    const movieId = button.getAttribute('data-bs-movie-id');
+    const showtimes = button.getAttribute('data-bs-showtimes');
+    const intermission = button.getAttribute('data-bs-intermission');
+    const price = button.getAttribute('data-bs-price');
+    const capacity = button.getAttribute('data-bs-capacity');
+
+    const form = document.getElementById('editForm');
+    form.action = `/showrooms/update/${scheduleId}/`;
+    document.getElementById('movieSelect').value = movieId;
+    document.getElementById('showtimesInput').value = showtimes;
+    document.getElementById('intermissionInput').value = intermission;
+    document.getElementById('priceInput').value = price;
+    document.getElementById('capacityInput').value = capacity;
+  });
+</script>
 {% endblock %}
