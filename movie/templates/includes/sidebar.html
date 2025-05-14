@@ -1,23 +1,42 @@
-<aside
-  style="width: 220px; background-color: #f3f4f6; padding: 1rem; height: 100vh"
->
-  <ul style="list-style: none; padding: 0">
-    {% comment %} <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-    <li><a href="{% url 'transactions' %}">Transactions</a></li>
-    <li><a href="{% url 'ticket_purchases' %}">Ticket Purchases</a></li>
-    <li><a href="{% url 'customers' %}">Customers</a></li>
-    <li><a href="{% url 'showrooms' %}">Showrooms</a></li>
-    <li><a href="{% url 'movies' %}">Movies</a></li>
-    <li><a href="{% url 'accounts' %}">Accounts</a></li> {% endcomment %}
-
-    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-    <li><a href="{% url 'transactions' %}">Transactions</a></li>
-    <li><a href="{% url 'ticket_purchases' %}">Ticket Purchases</a></li>
-    <li><a href="{% url 'customers' %}">Customers</a></li>
-    <li><a href="{% url 'showrooms' %}">Showrooms</a></li>
-    <li><a href="{% url 'movies' %}">Movies</a></li>
-
-
-    <li><a href="#">Accounts</a></li>
+<aside class="position-fixed top-0 start-0 text-white vh-100 p-3" style="width: 220px; background-color: #1e0354;">
+  <div class="fw-bold text-white d-flex align-items-center gap-2 my-3">
+    <img src="/static/logo.jpeg" alt="Logo" style="height: 50px;">
+  </div>
+  <ul class="nav flex-column gap-2">
+    <li class="nav-item">
+      <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active bg-light text-black rounded{% else %}text-white{% endif %} px-3 py-2" href="{% url 'dashboard' %}">
+        Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.resolver_match.url_name == 'transactions' %}active bg-light text-black rounded{% else %}text-white{% endif %} px-3 py-2" href="{% url 'transactions' %}">
+        Transactions
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.resolver_match.url_name == 'ticket_purchases' %}active bg-light text-black rounded{% else %}text-white{% endif %} px-3 py-2" href="{% url 'ticket_purchases' %}">
+        Ticket Purchases
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.resolver_match.url_name == 'customers' %}active bg-light text-black rounded{% else %}text-white{% endif %} px-3 py-2" href="{% url 'customers' %}">
+        Customers
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.resolver_match.url_name == 'showrooms' %}active bg-light text-black rounded{% else %}text-white{% endif %} px-3 py-2" href="{% url 'showrooms' %}">
+        Showrooms
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.resolver_match.url_name == 'movies' %}active bg-light text-black rounded{% else %}text-white{% endif %} px-3 py-2" href="{% url 'movies' %}">
+        Movies
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white px-3 py-2" href="{% url 'logout' %}">
+        Logout
+      </a>
+    </li>
   </ul>
 </aside>

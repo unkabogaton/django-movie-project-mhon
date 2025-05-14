@@ -3,7 +3,11 @@ from .models import Movie, Transaction, TicketPurchase, Customer, Schedule
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from .forms import SignupForm 
 
+@login_required
 def dashboard(request):
     # Fetch the top 5 highest-rated movies (You can adjust this based on your needs)
     top_movies = Movie.objects.order_by('-ratings')[:5]
@@ -23,7 +27,7 @@ def dashboard(request):
         'total_transactions': total_transactions,
     })
     
-
+@login_required
 def transactions_list(request):
     search = request.GET.get("search", "")
     status = request.GET.get("status", "")
@@ -72,7 +76,8 @@ def update_transaction_status(request):
             ])
 
         return redirect("transactions")
-    
+
+@login_required    
 def ticket_purchases(request):
     query = request.GET.get("q", "")
     status_filter = request.GET.get("status", "")
@@ -103,6 +108,7 @@ def redeem_ticket(request, ticket_id):
     ticket.save()
     return redirect('ticket_purchases')
 
+@login_required
 def customers_list(request):
     search_query = request.GET.get('q', '')
 
@@ -116,6 +122,7 @@ def customers_list(request):
 
     return render(request, 'customers.html', {'customers': customers, 'search_query': search_query})
 
+@login_required
 def showrooms(request):
     schedules = Schedule.objects.select_related('movie').order_by('showroom_number')
     movies = Movie.objects.all()
@@ -132,7 +139,8 @@ def update_schedule(request, schedule_id):
         schedule.capacity = request.POST.get("capacity")
         schedule.save()
         return redirect('showrooms')
-    
+
+@login_required    
 def movie_list(request):
     search_query = request.GET.get('search', '')
     view_type = request.GET.get('view', 'list')
@@ -195,3 +203,15 @@ def delete_movie(request, id):
         movie = get_object_or_404(Movie, id=id)
         movie.delete()
         return redirect('movies')
+    
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Save the new user
+            login(request, user)  # Log the user in immediately after sign-up
+            return redirect('dashboard')  
+    else:
+        form = SignupForm()  # Empty form for GET request
+
+    return render(request, 'signup.html', {'form': form})

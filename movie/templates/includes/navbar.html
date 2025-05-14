@@ -1,16 +1,13 @@
-<nav
-  style="
-    background-color: #1f2937;
-    color: white;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-  "
->
-  <div><strong>Movie Ticket Management System</strong></div>
+<nav class="navbar navbar-dark fixed-top px-4 py-3 d-flex justify-content-between" style="background-color: #1e0354;">
+  {% comment %} <div class="fw-bold text-white d-flex align-items-center gap-2">
+    <img src="/static/logo.jpeg" alt="Logo" style="height: 40px;">
+  </div> {% endcomment %}
   <div>
-    {% comment %} <a href="{% url 'logout' %}" style="color: white; text-decoration: none"
-      >Logout</a
-    > {% endcomment %}
+    {# Uncomment this when logout is ready #}
+    {#  
+    <a href="" class="text-white text-decoration-none">
+      Logout
+    </a> 
+    #}
   </div>
 </nav>
